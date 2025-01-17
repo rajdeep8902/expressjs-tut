@@ -2,6 +2,12 @@ import express from 'express';
 const app = express();
 app.use(express.json());
 
+const loggingMiddleware=(req,res,next)=>{
+    console.log(`${req.method} - ${req.url}`);
+    next();
+}
+// app.use(loggingMiddleware);
+
 const PORT = process.env.PORT || 3000;
 const mockUsers = [
     { id: 1, username: "raj" },
@@ -13,7 +19,7 @@ const mockUsers = [
     { id: 7, username: "dana" },
 ];
 
-app.get("/", (req, res) => {
+app.get("/", loggingMiddleware, (req, res) => {
     res.status(201).send({ msg: "hello" })
 })
 app.get('/api/users', (req, res) => {
