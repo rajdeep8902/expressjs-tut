@@ -35,6 +35,10 @@ app.get('/api/users', (req, res) => {
         mockUsers.filter((user) => user[filter].includes(value))
     );
 })
+app.use(loggingMiddleware,(req,res,next)=>{
+    console.log("Loading..")
+    next();
+})
 app.get('/api/users/:id', (req, res) => {
     console.log(req.params);
     const parsedId = parseInt(req.params.id);
