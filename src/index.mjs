@@ -19,7 +19,12 @@ const mockUsers = [
     { id: 7, username: "dana" },
 ];
 
-app.get("/", loggingMiddleware, (req, res) => {
+app.get("/",
+    (req,res,next)=>{
+        console.log("Base URL");
+        next();
+    }, 
+    (req, res) => {
     res.status(201).send({ msg: "hello" })
 })
 app.get('/api/users', (req, res) => {
