@@ -1,5 +1,7 @@
 import express from 'express';
-import { query, validationResult, body, matchedData } from "express-validator";
+import { query, validationResult, body, matchedData, checkSchema } from "express-validator";
+import { postSchema } from './utils/validationSchema.mjs';
+import { getSchema } from './utils/validationSchema.mjs';
 const app = express();
 app.use(express.json());
 
@@ -33,12 +35,7 @@ app.get("/", (req, res) => {
     res.status(201).send({ msg: "hello" })
 })
 app.get('/api/users',
-    query('filter')
-        .isString()
-        .notEmpty()
-        .withMessage("must not be empty")
-        .isLength({ min: 3, max: 10 })
-        .withMessage('must be at least 3 to 10 char'),
+    checkSchema(getSchema),
     (req, res) => {
         const result = validationResult(req);
         console.log(result)
@@ -59,11 +56,7 @@ app.get('/api/users/:id', (req, res) => {
     return res.send(findUser);
 })
 app.post('/api/users',
-    body("username")
-        .notEmpty()
-        .withMessage("username cant be empty")
-        .isLength({ min: 5, max: 32 })
-        .withMessage("username must be between 5 to 32 char")
+    checkSchema(postSchema)
     , (req, res) => {
         const result = validationResult(req);
         console.log(result);
