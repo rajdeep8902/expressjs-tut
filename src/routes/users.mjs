@@ -8,8 +8,17 @@ const userRouter = Router();
 userRouter.get('/api/users',
     checkSchema(getSchema),
     (req, res) => {
+        console.log(req.session);
+        console.log(req.session.id);
+        req.sessionStore.get(req.session.id, (err, sessionData) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            console.log(sessionData);
+        })
         const result = validationResult(req);
-        console.log(result)
+        // console.log(result)
         console.log(req.query)
         const { query: { filter, value } } = req;
         if (!filter || !value) return res.send(mockUsers);
@@ -31,10 +40,10 @@ userRouter.post('/api/users',
     , (req, res) => {
         const result = validationResult(req);
         console.log(result);
-        if(!result.isEmpty()){
-            return res.status(400).send({errors: result.array()})
+        if (!result.isEmpty()) {
+            return res.status(400).send({ errors: result.array() })
         }
-        const data=matchedData(req);
+        const data = matchedData(req);
         console.log(data)
         const newUser = { id: mockUsers[mockUsers.length - 1].id + 1, ...data };
         mockUsers.push(newUser)
