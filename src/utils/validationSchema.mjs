@@ -2,10 +2,10 @@ export const postSchema={
     username:{
         isLength:{
             options:{
-                min:5,
+                min:3,
                 max:32
             },
-            errMsg:"username must be between 5 to 32 char"
+            errMsg:"username must be between 3 to 32 char"
         },
         notEmpty:{
             errMsg:"username cant be empty"

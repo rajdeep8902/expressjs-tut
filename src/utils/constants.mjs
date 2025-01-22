@@ -1,11 +1,11 @@
 export const mockUsers = [
-    { id: 1, username: "raj" },
-    { id: 2, username: "deep" },
-    { id: 3, username: "arka" },
-    { id: 4, username: "samya" },
-    { id: 5, username: "logn" },
-    { id: 6, username: "apa" },
-    { id: 7, username: "dana" },
+    { id: 1, username: "raj", password: "hello123" },
+    { id: 2, username: "deep", password: "hello124" },
+    { id: 3, username: "arka", password: "hello12" },
+    { id: 4, username: "samya", password: "helo123" },
+    { id: 5, username: "logn", password: "heo123" },
+    { id: 6, username: "apa", password: "llo123" },
+    { id: 7, username: "dana", password: "hello23" },
 ];
 export const resolveUserById = (req, res, next) => {
     const { body, params: { id } } = req;
