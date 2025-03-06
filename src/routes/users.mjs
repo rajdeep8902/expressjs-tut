@@ -3,6 +3,7 @@ import { query, validationResult, body, matchedData, checkSchema } from "express
 import { postSchema, getSchema } from "../utils/validationSchema.mjs";
 import { mockUsers, resolveUserById } from "../utils/constants.mjs";
 import { User } from "../mongoose/schemas/user.mjs";
+import { hashPass } from "../utils/helpers.mjs";
 
 const userRouter = Router();
 
@@ -40,6 +41,8 @@ userRouter.post('/api/users', checkSchema(postSchema), async (req, res) => {
     const result = validationResult(req);
     if (!result.isEmpty()) return res.status(400).send(result.array());
     const data = matchedData(req);
+    data.password = hashPass(data.password);
+    console.log(data);
     const newUser = new User(data);
     try {
         const savedUser = await newUser.save();
