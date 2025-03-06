@@ -13,6 +13,11 @@ export const postSchema={
         isString:{
             errMsg:"username must be string"
         }
+    },
+    password:{
+        notEmpty:{
+            errMsg:"give a password"
+        }
     }
 }
 export const getSchema={
